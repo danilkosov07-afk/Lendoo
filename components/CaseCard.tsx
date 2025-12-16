@@ -24,7 +24,7 @@ export default function CaseCard({ caseItem }: { caseItem: CaseItem }) {
     <motion.div
       whileHover={{ y: -8, scale: 1.01 }}
       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-      className="relative p-8 bg-surface rounded-2xl border border-surface hover:border-accent-primary/50 transition-all duration-300 group overflow-hidden"
+      className="relative h-full flex flex-col p-8 bg-surface rounded-2xl border border-surface hover:border-accent-primary/50 transition-all duration-300 group overflow-hidden"
     >
       {/* Image */}
       <div className="relative h-48 mb-6 rounded-lg overflow-hidden bg-surface-muted/20">
@@ -50,7 +50,7 @@ export default function CaseCard({ caseItem }: { caseItem: CaseItem }) {
       </h3>
 
       {/* Description */}
-      <p className="text-foreground-muted text-body mb-6 leading-relaxed">
+      <p className="text-foreground-muted text-body mb-6 leading-relaxed flex-grow">
         {caseItem.userDescription || caseItem.description}
       </p>
 
@@ -105,7 +105,7 @@ export default function CaseCard({ caseItem }: { caseItem: CaseItem }) {
           href={caseItem.cta.href}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="block w-full px-6 py-3 bg-accent-primary text-background font-heading font-semibold rounded-lg text-center hover:bg-accent-secondary transition-colors"
+          className="block w-full mt-auto px-6 py-3 bg-accent-primary text-background font-heading font-semibold rounded-lg text-center hover:bg-accent-secondary transition-colors"
         >
           {caseItem.cta.text}
         </motion.a>
