@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
-import { Orbitron, Inter } from 'next/font/google'
+import { Exo_2, Inter } from 'next/font/google'
 import './globals.css'
 import { getSEOData, getSiteData } from '@/lib/data'
 import { generateSchema } from './schema'
 
-const headingFont = Orbitron({
+const headingFont = Exo_2({
   subsets: ['latin', 'cyrillic'],
   display: 'swap',
   variable: '--font-heading',
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     telephone: false,
   },
   openGraph: {
-    type: seoData.type || 'website',
+    type: (seoData.type as 'website' | 'article') || 'website',
     locale: seoData.locale || 'ru_RU',
     url: seoData.url,
     siteName: seoData.siteName || siteData.site.name,

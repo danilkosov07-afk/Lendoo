@@ -32,6 +32,14 @@ body {
   background: var(--background);
   overflow-x: hidden;
   position: relative;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Оптимизация производительности */
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 /* Global Background Grid */
@@ -49,6 +57,9 @@ body::before {
   opacity: 0.3;
   pointer-events: none;
   z-index: 0;
+  /* Оптимизация для производительности */
+  will-change: auto;
+  transform: translateZ(0); /* GPU acceleration */
 }
 
 /* Global Noise Texture */
@@ -63,6 +74,9 @@ body::after {
   opacity: 1;
   pointer-events: none;
   z-index: 0;
+  /* Оптимизация для производительности */
+  will-change: auto;
+  transform: translateZ(0); /* GPU acceleration */
 }
 
 /* Ensure content is above background layers */
@@ -249,6 +263,11 @@ footer {
     background-size: 4rem 4rem;
     opacity: 0.1;
   }
+
+  /* Radial Gradient */
+  .bg-gradient-radial {
+    background: radial-gradient(circle, var(--accent-primary), transparent);
+  }
 }
 
 @layer utilities {
@@ -329,10 +348,119 @@ footer {
   /* Animation Utilities */
   .animate-float {
     animation: float 6s ease-in-out infinite;
+    will-change: transform;
+    transform: translateZ(0); /* GPU acceleration */
   }
   
   .animate-glow {
     animation: glow-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    will-change: box-shadow;
+  }
+
+  /* Performance optimizations */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  .optimize-animations {
+    will-change: transform, opacity;
+  }
+
+  /* Responsive utilities */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Prevent text overflow */
+  .text-overflow-safe {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+}
+
+/* Responsive images and SVGs */
+img, svg {
+  max-width: 100%;
+  height: auto;
+}
+
+svg {
+  display: block;
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Отключаем hover-эффекты на touch-устройствах */
+  *:hover {
+    transition: none !important;
+  }
+  
+  /* Улучшаем кликабельность на touch */
+  button, a, [role="button"] {
+    -webkit-tap-highlight-color: rgba(79, 209, 197, 0.2);
+    tap-highlight-color: rgba(79, 209, 197, 0.2);
+  }
+  
+  /* Улучшаем читаемость текста */
+  body {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+}
+
+/* Desktop hover optimizations */
+@media (hover: hover) and (pointer: fine) {
+  /* Плавные hover-эффекты только на desktop */
+  a, button {
+    transition: all 0.3s ease;
+  }
+}
+
+/* Prevent text selection on UI elements */
+button, .no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Improve scrolling on mobile */
+@media (max-width: 768px) {
+  html {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Оптимизация анимаций на мобильных */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Уменьшение сложных эффектов на слабых устройствах */
+  @media (prefers-reduced-motion: no-preference) {
+    /* Отключаем сложные анимации на мобильных для производительности */
+    body::before,
+    body::after {
+      opacity: 0.2; /* Уменьшаем opacity для производительности */
+    }
+  }
+}
+
+/* Оптимизация для слабых устройств */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 

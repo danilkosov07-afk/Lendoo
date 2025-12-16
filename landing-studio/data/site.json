@@ -1,20 +1,20 @@
 {
   "site": {
-    "name": "Digital Studio",
+    "name": "Lendoo",
     "tagline": "Создаём будущее цифрового опыта"
   },
   "seo": {
-    "title": "Digital Studio | Лендинги и анимированные интерфейсы",
+    "title": "Lendoo | Лендинги и анимированные интерфейсы",
     "description": "Создаём продающие лендинги, анимированные интерфейсы, data-визуал и интерактивные hero-блоки. Экспертиза в digital-решениях, которые работают на результат.",
     "keywords": "лендинги, анимированные интерфейсы, data-визуал, hero-блоки, digital-студия, веб-разработка, UI/UX дизайн",
-    "url": "https://digitalstudio.com",
+    "url": "https://lendoo.com",
     "image": "/og-image.jpg",
-    "siteName": "Digital Studio",
+    "siteName": "Lendoo",
     "locale": "ru_RU",
     "type": "website"
   },
   "header": {
-    "logo": "Digital Studio",
+    "logo": "Lendoo",
     "nav": [
       {
         "label": "Услуги",
@@ -39,7 +39,7 @@
     }
   },
   "hero": {
-    "badge": "Digital Studio",
+    "badge": "Lendoo",
     "title": {
       "highlight": "Создаём будущее",
       "text": "цифрового опыта"
@@ -197,9 +197,9 @@
         "period": "За 3 месяца"
       },
       {
-        "title": "SaaS продукт",
-        "result": "Увеличение регистраций на 250%",
-        "period": "После редизайна"
+        "title": "Лендинг-галерея",
+        "result": "Увеличение просмотров на 250%",
+        "period": "После запуска"
       }
     ]
   },
@@ -212,25 +212,70 @@
         "title": "E-commerce платформа",
         "category": "Лендинг",
         "description": "Увеличение конверсии на 150% за счёт продуманного UX и современных анимаций",
+        "userDescription": "Создаю полнофункциональную E-commerce платформу. Ваш интернет-магазин готов к продажам с корзиной, оплатой и управлением товарами.",
         "image": "/cases/case-1.jpg",
         "metrics": {
           "conversion": "+150%",
           "traffic": "+80%",
           "bounce": "-40%"
         },
-        "tags": ["Лендинг", "E-commerce", "Анимации"]
+        "tags": ["Лендинг", "E-commerce", "Анимации"],
+        "benefits": [
+          "Готовый лендинг для вашего продукта",
+          "Адаптивный дизайн для всех устройств",
+          "Высокая скорость загрузки",
+          "Оптимизация для поисковых систем"
+        ],
+        "cta": {
+          "text": "Заказать сейчас",
+          "href": "#контакты"
+        }
       },
       {
         "id": "case-2",
-        "title": "SaaS Dashboard",
-        "category": "Data-визуал",
-        "description": "Интерактивная визуализация данных для аналитической платформы",
+        "title": "Лендинг с описанием продукта",
+        "category": "Лендинг",
+        "description": "Продающий лендинг с фокусом на продукт и его преимущества",
+        "userDescription": "Создаю лендинг с описанием продукта. Ваш лендинг сразу готов к демонстрации товара или услуги.",
         "image": "/cases/case-2.jpg",
         "metrics": {
-          "users": "+200%",
-          "engagement": "+120%"
+          "conversion": "+120%",
+          "engagement": "+90%"
         },
-        "tags": ["Dashboard", "Data-визуал", "Интерактив"]
+        "tags": ["Лендинг", "Продукт", "Информация"],
+        "benefits": [
+          "Профессиональное представление продукта",
+          "Увеличение конверсии",
+          "Мобильная адаптация",
+          "Быстрая загрузка страницы"
+        ],
+        "cta": {
+          "text": "Заказать сейчас",
+          "href": "#контакты"
+        }
+      },
+      {
+        "id": "case-3",
+        "title": "Лендинг-галерея",
+        "category": "Лендинг",
+        "description": "Визуальная галерея для демонстрации нескольких товаров или проектов",
+        "userDescription": "Создаю лендинг в виде галереи. Показывайте сразу несколько товаров или проектов на одном экране.",
+        "image": "/cases/case-3.jpg",
+        "metrics": {
+          "views": "+180%",
+          "time": "+65%"
+        },
+        "tags": ["Лендинг", "Галерея"],
+        "benefits": [
+          "Демонстрация нескольких товаров одновременно",
+          "Интерактивная галерея",
+          "Удобная навигация",
+          "Визуально привлекательный дизайн"
+        ],
+        "cta": {
+          "text": "Заказать сейчас",
+          "href": "#контакты"
+        }
       }
     ]
   },
@@ -269,23 +314,13 @@
         "name": "Telegram",
         "href": "https://t.me/digitalstudio",
         "icon": "telegram"
-      },
-      {
-        "name": "WhatsApp",
-        "href": "https://wa.me/79991234567",
-        "icon": "whatsapp"
-      },
-      {
-        "name": "Behance",
-        "href": "https://behance.net/digitalstudio",
-        "icon": "behance"
       }
     ]
   },
   "footer": {
-    "logo": "Digital Studio",
+    "logo": "Lendoo",
     "tagline": "Создаём будущее цифрового опыта",
-    "copyright": "© {year} Digital Studio. Все права защищены.",
+    "copyright": "© {year} Lendoo. Все права защищены.",
     "links": [
       {
         "label": "Услуги",
@@ -309,16 +344,6 @@
         "name": "Telegram",
         "href": "https://t.me/digitalstudio",
         "icon": "telegram"
-      },
-      {
-        "name": "Behance",
-        "href": "https://behance.net/digitalstudio",
-        "icon": "behance"
-      },
-      {
-        "name": "GitHub",
-        "href": "https://github.com/digitalstudio",
-        "icon": "github"
       }
     ]
   }

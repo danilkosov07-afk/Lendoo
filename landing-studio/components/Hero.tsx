@@ -15,6 +15,9 @@ export default function Hero() {
   const contentOpacity = useTransform(scrollY, [0, 300], [1, 0])
 
   useEffect(() => {
+    // Проверка поддержки touch
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+    
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({
         x: (e.clientX / window.innerWidth - 0.5) * 40,
@@ -22,8 +25,23 @@ export default function Hero() {
       })
     }
 
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        const touch = e.touches[0]
+        setMousePosition({
+          x: (touch.clientX / window.innerWidth - 0.5) * 20, // Меньший эффект на touch
+          y: (touch.clientY / window.innerHeight - 0.5) * 20,
+        })
+      }
+    }
+
+    if (!isTouchDevice) {
+      window.addEventListener('mousemove', handleMouseMove)
+      return () => window.removeEventListener('mousemove', handleMouseMove)
+    } else {
+      window.addEventListener('touchmove', handleTouchMove, { passive: true })
+      return () => window.removeEventListener('touchmove', handleTouchMove)
+    }
   }, [])
 
   return (
@@ -49,10 +67,11 @@ export default function Hero() {
             className="mb-8"
           >
             <motion.p
-              className="text-accent-primary font-heading text-body-lg tracking-wider uppercase inline-block"
+              className="text-accent-primary font-heading text-body-lg tracking-wider uppercase inline-block relative"
               whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <span className="relative">
+              <span className="relative z-10">
                 {heroData.badge}
                 <motion.span
                   className="absolute -bottom-1 left-0 right-0 h-0.5 bg-accent-primary"
@@ -61,6 +80,19 @@ export default function Hero() {
                   transition={{ delay: 0.5, duration: 0.6 }}
                 />
               </span>
+              {/* Subtle glow on badge */}
+              <motion.span
+                className="absolute inset-0 bg-accent-primary/20 blur-md -z-10"
+                animate={{
+                  opacity: [0.1, 0.3, 0.1],
+                  scale: [1, 1.1, 1],
+                }}
+                transition={{
+                  duration: 2.5,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+              />
             </motion.p>
           </motion.div>
 
@@ -69,7 +101,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="font-heading text-hero font-bold mb-8 leading-[1.1]"
+            className="font-heading text-hero font-bold mb-6 sm:mb-8 leading-[1.1] px-2"
           >
             <motion.span
               className="gradient-text block mb-2"
@@ -94,7 +126,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1, duration: 0.8, ease: 'easeOut' }}
-            className="text-foreground-muted text-body-lg max-w-3xl mx-auto mb-12 leading-relaxed"
+            className="text-foreground-muted text-body-lg max-w-3xl mx-auto mb-8 sm:mb-12 leading-relaxed break-words px-2"
           >
             {heroData.subtitle}
           </motion.p>
@@ -104,22 +136,55 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2, duration: 0.8, ease: 'easeOut' }}
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+            className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center w-full sm:w-auto mb-24 sm:mb-32"
           >
             <motion.a
               href={heroData.cta.primary.href}
               whileHover={{ 
                 scale: 1.05, 
-                boxShadow: '0 0 40px rgba(79, 209, 197, 0.5)',
+                boxShadow: '0 0 40px rgba(79, 209, 197, 0.6), 0 0 80px rgba(79, 209, 197, 0.3)',
                 y: -2
               }}
               whileTap={{ scale: 0.98 }}
-              className="relative px-10 py-5 bg-accent-primary text-background font-heading font-semibold rounded-lg transition-all duration-300 hover:bg-accent-secondary overflow-hidden group"
+              animate={{
+                boxShadow: [
+                  '0 0 20px rgba(79, 209, 197, 0.4)',
+                  '0 0 30px rgba(79, 209, 197, 0.5)',
+                  '0 0 20px rgba(79, 209, 197, 0.4)',
+                ],
+              }}
+              transition={{
+                scale: { duration: 0.15, ease: 'easeOut' },
+                y: { duration: 0.15, ease: 'easeOut' },
+                boxShadow: {
+                  default: { duration: 0.15, ease: 'easeOut' },
+                  animate: {
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  },
+                },
+              }}
+              className="relative w-full sm:w-auto px-6 sm:px-10 py-3 sm:py-5 bg-accent-primary text-background font-heading font-semibold rounded-lg hover:bg-accent-secondary overflow-hidden group text-center min-h-[48px] flex items-center justify-center"
             >
-              <span className="relative z-10">{heroData.cta.primary.text}</span>
+              <span className="relative z-10 whitespace-nowrap">{heroData.cta.primary.text}</span>
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-accent-secondary to-accent-primary opacity-0 group-hover:opacity-100 transition-opacity"
                 initial={false}
+              />
+              {/* Subtle glow effect */}
+              <motion.div
+                className="absolute -inset-1 bg-accent-primary rounded-lg blur-xl opacity-30"
+                animate={{
+                  opacity: [0.2, 0.4, 0.2],
+                  scale: [1, 1.05, 1],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+                style={{ willChange: 'transform, opacity' }}
               />
             </motion.a>
             
@@ -131,9 +196,13 @@ export default function Hero() {
                 y: -2
               }}
               whileTap={{ scale: 0.98 }}
-              className="relative px-10 py-5 border-2 border-surface text-foreground font-heading font-semibold rounded-lg transition-all duration-300 hover:border-accent-primary hover:text-accent-primary group overflow-hidden"
+              transition={{
+                scale: { duration: 0.15, ease: 'easeOut' },
+                y: { duration: 0.15, ease: 'easeOut' },
+              }}
+              className="relative w-full sm:w-auto px-6 sm:px-10 py-3 sm:py-5 border-2 border-surface text-foreground font-heading font-semibold rounded-lg hover:border-accent-primary hover:text-accent-primary group overflow-hidden text-center min-h-[48px] flex items-center justify-center"
             >
-              <span className="relative z-10">{heroData.cta.secondary.text}</span>
+              <span className="relative z-10 whitespace-nowrap">{heroData.cta.secondary.text}</span>
               <motion.div
                 className="absolute inset-0 bg-accent-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"
                 initial={false}
@@ -147,7 +216,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 0.6 }}
-          className="absolute bottom-20 left-1/2 transform -translate-x-1/2"
+          className="absolute bottom-4 sm:bottom-6 left-1/2 transform -translate-x-1/2 z-10"
         >
           <motion.div
             animate={{

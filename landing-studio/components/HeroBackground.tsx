@@ -58,9 +58,6 @@ export default function HeroBackground({ mousePosition }: HeroBackgroundProps) {
     }
   }, [])
 
-  // Параллакс для градиентов
-  const parallaxOffset = scrollY * 0.5
-
   return (
     <>
       {/* WebGL Canvas (структура готова для будущей реализации) */}
@@ -74,39 +71,42 @@ export default function HeroBackground({ mousePosition }: HeroBackgroundProps) {
       <div className="absolute inset-0 overflow-hidden">
         {/* Основной градиент с параллаксом */}
         <div
-          className="absolute w-[800px] h-[800px] rounded-full blur-3xl opacity-30"
+          className="absolute w-[400px] sm:w-[600px] md:w-[800px] h-[400px] sm:h-[600px] md:h-[800px] rounded-full blur-3xl opacity-30"
           style={{
             background: 'radial-gradient(circle, rgba(79, 209, 197, 0.5) 0%, rgba(56, 189, 248, 0.3) 40%, transparent 70%)',
-            transform: `translate(${mousePosition.x * 0.5 + parallaxValue * 0.1}px, ${mousePosition.y * 0.5 + parallaxValue * 0.1}px)`,
+            transform: `translate3d(${mousePosition.x * 0.5 + parallaxValue * 0.1}px, ${mousePosition.y * 0.5 + parallaxValue * 0.1}px, 0)`,
             transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
             left: '50%',
             top: '50%',
-            marginLeft: '-400px',
-            marginTop: '-400px',
+            marginLeft: 'clamp(-400px, -50vw, -200px)',
+            marginTop: 'clamp(-400px, -50vh, -200px)',
+            willChange: 'transform',
           }}
         />
 
         {/* Вторичный градиент */}
         <div
-          className="absolute w-[600px] h-[600px] rounded-full blur-3xl opacity-20"
+          className="absolute w-[300px] sm:w-[450px] md:w-[600px] h-[300px] sm:h-[450px] md:h-[600px] rounded-full blur-3xl opacity-20"
           style={{
             background: 'radial-gradient(circle, rgba(56, 189, 248, 0.4) 0%, rgba(79, 209, 197, 0.2) 50%, transparent 70%)',
-            transform: `translate(${-mousePosition.x * 0.3 + parallaxValue * 0.05}px, ${-mousePosition.y * 0.3 + parallaxValue * 0.05}px)`,
+            transform: `translate3d(${-mousePosition.x * 0.3 + parallaxValue * 0.05}px, ${-mousePosition.y * 0.3 + parallaxValue * 0.05}px, 0)`,
             transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-            right: '20%',
+            right: '10%',
             top: '30%',
+            willChange: 'transform',
           }}
         />
 
         {/* Третичный градиент для глубины */}
         <div
-          className="absolute w-[500px] h-[500px] rounded-full blur-3xl opacity-15"
+          className="absolute w-[250px] sm:w-[375px] md:w-[500px] h-[250px] sm:h-[375px] md:h-[500px] rounded-full blur-3xl opacity-15"
           style={{
             background: 'radial-gradient(circle, rgba(79, 209, 197, 0.3) 0%, transparent 60%)',
-            transform: `translate(${mousePosition.x * 0.2}px, ${mousePosition.y * 0.2}px)`,
+            transform: `translate3d(${mousePosition.x * 0.2}px, ${mousePosition.y * 0.2}px, 0)`,
             transition: 'transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)',
-            left: '10%',
+            left: '5%',
             bottom: '20%',
+            willChange: 'transform',
           }}
         />
       </div>
@@ -115,8 +115,9 @@ export default function HeroBackground({ mousePosition }: HeroBackgroundProps) {
       <div
         className="absolute inset-0 bg-grid opacity-20"
         style={{
-          transform: `translateY(${parallaxValue * 0.2}px)`,
+          transform: `translate3d(0, ${parallaxValue * 0.2}px, 0)`,
           transition: 'transform 0.1s linear',
+          willChange: 'transform',
         }}
       />
 

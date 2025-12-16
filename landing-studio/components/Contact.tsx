@@ -5,35 +5,36 @@ import { useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { getContactData } from '@/lib/data'
 import ContactForm from './ContactForm'
+import { TelegramIcon } from './svg/SocialIcons'
 
 export default function Contact() {
   const contactData = getContactData()
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
+  const isInView = useInView(ref, { once: true, margin: '0px', amount: 0.2 })
 
   return (
-    <section id="контакты" ref={ref} className="relative py-32 bg-background-alt">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+    <section id="контакты" ref={ref} className="relative py-20 sm:py-32 bg-background-alt">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          initial={{ opacity: 0, y: 10 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+          transition={{ duration: 0.4 }}
+          className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="font-heading text-h1 font-bold mb-6">
+          <h2 className="font-heading text-h1 font-bold mb-4 sm:mb-6">
             <span className="gradient-text">{contactData.title}</span>
           </h2>
-          <p className="text-foreground-muted text-body-lg max-w-2xl mx-auto">
+          <p className="text-foreground-muted text-body-lg max-w-2xl mx-auto break-words">
             {contactData.subtitle}
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-start">
           {/* Контактная информация */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            initial={{ opacity: 0, x: -20 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
             className="space-y-8"
           >
             <div>
@@ -75,26 +76,26 @@ export default function Contact() {
                 </motion.a>
               </div>
 
-              {contactData.social && contactData.social.length > 0 && (
-                <div className="mt-8 pt-8 border-t border-surface">
-                  <p className="text-foreground-muted text-body-sm mb-4">Социальные сети</p>
-                  <div className="flex gap-4">
-                    {contactData.social.map((social) => (
-                      <motion.a
-                        key={social.name}
-                        href={social.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ scale: 1.1, y: -2 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="w-10 h-10 rounded-lg bg-surface flex items-center justify-center text-foreground-muted hover:text-accent-primary hover:bg-accent-primary/10 transition-colors"
-                      >
-                        <span className="text-body-lg">{social.icon === 'telegram' ? '✈' : social.icon === 'whatsapp' ? '💬' : '🎨'}</span>
-                      </motion.a>
-                    ))}
+              {/* Кнопка Telegram */}
+              <div className="mt-8 pt-8 border-t border-surface">
+                <p className="text-foreground-muted text-body-sm mb-4">Написать в Telegram</p>
+                <motion.a
+                  href="https://t.me/Mmmmogme"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ x: 5, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="inline-flex items-center gap-3 px-6 py-3 bg-accent-primary/10 hover:bg-accent-primary/20 border border-accent-primary/30 hover:border-accent-primary/50 text-accent-primary font-heading font-semibold rounded-lg transition-all group min-h-[48px]"
+                >
+                  <div className="w-8 h-8 rounded-lg bg-accent-primary/20 flex items-center justify-center group-hover:bg-accent-primary/30 transition-colors">
+                    <TelegramIcon className="w-5 h-5" color="currentColor" />
                   </div>
-                </div>
-              )}
+                  <span>Написать в Telegram</span>
+                  <svg className="w-4 h-4 ml-auto opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </motion.a>
+              </div>
             </div>
           </motion.div>
 
@@ -103,7 +104,7 @@ export default function Contact() {
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="bg-surface/50 p-8 rounded-2xl border border-surface"
+            className="bg-surface/50 p-6 sm:p-8 rounded-2xl border border-surface w-full"
           >
             <ContactForm />
           </motion.div>

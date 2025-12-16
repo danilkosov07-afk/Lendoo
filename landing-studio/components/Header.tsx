@@ -69,7 +69,7 @@ export default function Header() {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="text-foreground-muted hover:text-accent-primary transition-colors font-body text-body"
+                className="text-foreground-muted hover:text-accent-primary transition-colors font-body text-body min-h-[32px] flex items-center"
               >
                 {item.label}
               </motion.a>
@@ -77,20 +77,56 @@ export default function Header() {
             <motion.a
               href={headerData.cta.href}
               initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              whileHover={{ scale: 1.05 }}
+              animate={{ 
+                opacity: 1, 
+                y: 0,
+                boxShadow: [
+                  '0 0 15px rgba(79, 209, 197, 0.3)',
+                  '0 0 25px rgba(79, 209, 197, 0.4)',
+                  '0 0 15px rgba(79, 209, 197, 0.3)',
+                ],
+              }}
+              transition={{ 
+                opacity: { duration: 0.6, delay: 0.4 },
+                y: { duration: 0.6, delay: 0.4 },
+                scale: { duration: 0.15, ease: 'easeOut' },
+                boxShadow: {
+                  default: { duration: 0.15, ease: 'easeOut' },
+                  animate: {
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  },
+                },
+              }}
+              whileHover={{ 
+                scale: 1.05,
+                boxShadow: '0 0 30px rgba(79, 209, 197, 0.6)',
+              }}
               whileTap={{ scale: 0.95 }}
-              className="px-6 py-2 bg-accent-primary text-background font-heading font-semibold rounded-lg transition-all duration-300 hover:bg-accent-secondary"
+              className="relative px-6 py-2 bg-accent-primary text-background font-heading font-semibold rounded-lg hover:bg-accent-secondary min-h-[44px] flex items-center justify-center overflow-hidden"
             >
-              {headerData.cta.text}
+              <span className="relative z-10">{headerData.cta.text}</span>
+              {/* Subtle glow */}
+              <motion.div
+                className="absolute -inset-1 bg-accent-primary rounded-lg blur-md opacity-30"
+                animate={{
+                  opacity: [0.2, 0.4, 0.2],
+                }}
+                transition={{
+                  duration: 2.5,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+              />
             </motion.a>
           </div>
 
           <button
-            className="md:hidden text-foreground"
+            className="md:hidden text-foreground p-2 -mr-2 min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
+            type="button"
           >
             <svg
               className="w-6 h-6"
@@ -115,18 +151,25 @@ export default function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden pb-6 space-y-4"
+            className="md:hidden pb-6 space-y-4 pt-4"
           >
             {headerData.nav.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
-                className="block text-foreground-muted hover:text-accent-primary transition-colors"
+                className="block text-foreground-muted hover:text-accent-primary transition-colors py-3 min-h-[48px] flex items-center touch-manipulation"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {item.label}
               </a>
             ))}
+            <a
+              href={headerData.cta.href}
+              className="block w-full mt-4 px-6 py-3 bg-accent-primary text-background font-heading font-semibold rounded-lg hover:bg-accent-secondary text-center min-h-[44px] flex items-center justify-center"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              {headerData.cta.text}
+            </a>
           </motion.div>
         )}
       </nav>

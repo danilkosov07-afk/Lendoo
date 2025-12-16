@@ -38,10 +38,6 @@ export function getContactData() {
   return siteData.contact
 }
 
-export function getBenefitsData() {
-  return siteData.benefits
-}
-
 export function getHeaderData() {
   return siteData.header
 }

@@ -7,33 +7,55 @@ import { getBenefitsData } from '@/lib/data'
 
 function StatCard({ stat, index }: { stat: { value: string; label: string; description: string }; index: number }) {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true })
+  const isInView = useInView(ref, { once: true, margin: '0px', amount: 0.2 })
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 30, scale: 0.9 }}
-      animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 30, scale: 0.9 }}
-      transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ opacity: 0, y: 20, scale: 0.95 }}
+      animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 20, scale: 0.95 }}
+      transition={{ duration: 0.4, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ 
         y: -8, 
-        scale: 1.02, 
+        scale: 1.02,
+        boxShadow: '0 10px 30px rgba(79, 209, 197, 0.2)',
         transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } 
       }}
-      className="relative p-6 bg-surface rounded-xl border border-surface hover:border-accent-primary/50 transition-all duration-300 group"
+      whileTap={{ scale: 0.98, y: -4 }}
+      className="relative p-4 sm:p-6 bg-surface rounded-xl border border-surface hover:border-accent-primary/50 transition-all duration-300 group"
     >
+      {/* Subtle glow on card */}
       <motion.div
-        className="font-heading text-h1 font-bold gradient-text mb-2"
+        className="absolute inset-0 rounded-xl bg-gradient-to-br from-accent-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
+        initial={false}
+      />
+      <motion.div
+        className="font-heading text-h2 sm:text-h1 font-bold gradient-text mb-2 break-words relative"
         initial={{ scale: 0 }}
-        animate={isInView ? { scale: 1 } : { scale: 0 }}
-        transition={{ duration: 0.5, delay: index * 0.1 + 0.2, ease: 'backOut' }}
+        animate={isInView ? { 
+          scale: 1,
+          textShadow: [
+            '0 0 10px rgba(79, 209, 197, 0.3)',
+            '0 0 20px rgba(79, 209, 197, 0.5)',
+            '0 0 10px rgba(79, 209, 197, 0.3)',
+          ],
+        } : { scale: 0 }}
+        transition={{ 
+          scale: { duration: 0.4, delay: index * 0.05 + 0.1, ease: 'backOut' },
+          textShadow: {
+            duration: 2.5,
+            repeat: Infinity,
+            ease: 'easeInOut',
+            delay: index * 0.1 + 0.5,
+          },
+        }}
       >
         {stat.value}
       </motion.div>
-      <h3 className="font-heading text-h4 font-semibold mb-2 text-foreground group-hover:text-accent-primary transition-colors">
+      <h3 className="font-heading text-body-lg sm:text-h4 font-semibold mb-2 text-foreground group-hover:text-accent-primary transition-colors break-words">
         {stat.label}
       </h3>
-      <p className="text-foreground-muted text-body-sm">
+      <p className="text-foreground-muted text-body-sm break-words">
         {stat.description}
       </p>
       <div className="absolute inset-0 bg-gradient-to-br from-accent-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl" />
@@ -43,22 +65,22 @@ function StatCard({ stat, index }: { stat: { value: string; label: string; descr
 
 function FactCard({ fact, index }: { fact: { title: string; description: string; highlight: string }; index: number }) {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true })
+  const isInView = useInView(ref, { once: true, margin: '0px', amount: 0.2 })
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, x: -30 }}
-      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
-      transition={{ duration: 0.6, delay: index * 0.15, ease: [0.22, 1, 0.36, 1] }}
-      className="relative p-6 bg-surface/50 rounded-xl border border-surface/50"
+      initial={{ opacity: 0, x: -20 }}
+      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+      transition={{ duration: 0.4, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
+      className="relative p-5 sm:p-6 bg-surface/50 rounded-xl border border-surface/50"
     >
-      <div className="flex items-start justify-between gap-4 mb-3">
-        <h3 className="font-heading text-h4 font-semibold text-foreground flex-1">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4 mb-3">
+        <h3 className="font-heading text-body-lg sm:text-h4 font-semibold text-foreground flex-1 break-words">
           {fact.title}
         </h3>
         <motion.span
-          className="px-3 py-1 bg-accent-primary/20 text-accent-primary font-heading text-caption font-bold rounded-full whitespace-nowrap"
+          className="px-3 py-1 bg-accent-primary/20 text-accent-primary font-heading text-caption font-bold rounded-full whitespace-nowrap self-start sm:self-auto"
           initial={{ scale: 0 }}
           animate={isInView ? { scale: 1 } : { scale: 0 }}
           transition={{ duration: 0.4, delay: index * 0.15 + 0.3, ease: 'backOut' }}
@@ -66,7 +88,7 @@ function FactCard({ fact, index }: { fact: { title: string; description: string;
           {fact.highlight}
         </motion.span>
       </div>
-      <p className="text-foreground-muted text-body leading-relaxed">
+      <p className="text-foreground-muted text-body leading-relaxed break-words">
         {fact.description}
       </p>
     </motion.div>
@@ -104,13 +126,13 @@ export default function Benefits() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section ref={ref} className="relative py-32 bg-background">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+    <section ref={ref} className="relative py-20 sm:py-32 bg-background">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="text-center mb-12 sm:mb-20"
         >
           <h2 className="font-heading text-h1 font-bold mb-6">
             <span className="gradient-text">{benefitsData.title}</span>
@@ -121,14 +143,14 @@ export default function Benefits() {
         </motion.div>
 
         {/* Статистика */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-12 sm:mb-20">
           {benefitsData.stats.map((stat, index) => (
             <StatCard key={stat.label} stat={stat} index={index} />
           ))}
         </div>
 
         {/* Факты */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-20">
           {benefitsData.facts.map((fact, index) => (
             <FactCard key={fact.title} fact={fact} index={index} />
           ))}

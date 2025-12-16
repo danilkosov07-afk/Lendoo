@@ -36,3 +36,4 @@ export async function getTranslations(locale: Locale) {
   return siteData.default
 }
 
+

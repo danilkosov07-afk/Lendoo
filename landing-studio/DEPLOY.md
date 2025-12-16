@@ -95,3 +95,4 @@ NEXT_PUBLIC_SITE_URL=https://yourdomain.com
 
 Все тексты в `data/site.json` - легко редактировать без изменения кода.
 
+

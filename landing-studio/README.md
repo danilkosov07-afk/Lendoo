@@ -1,4 +1,4 @@
-# Digital Studio - Landing Page
+# Lendoo - Landing Page
 
 Продающий сайт digital-студии, специализирующейся на лендингах, анимированных интерфейсах, data-визуале и интерактивных hero-блоках.
 

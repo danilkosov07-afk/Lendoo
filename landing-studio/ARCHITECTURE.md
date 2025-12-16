@@ -100,3 +100,4 @@ landing-studio/
 - ✅ Готовность к Vercel
 - ✅ Production-ready код
 
+
