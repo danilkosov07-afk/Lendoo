@@ -8,9 +8,15 @@ interface CaseItem {
   title: string
   category: string
   description: string
+  userDescription?: string
   image: string
   metrics?: Record<string, string>
   tags?: string[]
+  benefits?: string[]
+  cta?: {
+    text: string
+    href: string
+  }
 }
 
 export default function CaseCard({ caseItem }: { caseItem: CaseItem }) {
@@ -45,7 +51,7 @@ export default function CaseCard({ caseItem }: { caseItem: CaseItem }) {
 
       {/* Description */}
       <p className="text-foreground-muted text-body mb-6 leading-relaxed">
-        {caseItem.description}
+        {caseItem.userDescription || caseItem.description}
       </p>
 
       {/* Metrics */}
@@ -64,9 +70,24 @@ export default function CaseCard({ caseItem }: { caseItem: CaseItem }) {
         </div>
       )}
 
+      {/* Benefits */}
+      {caseItem.benefits && caseItem.benefits.length > 0 && (
+        <div className="mb-6">
+          <p className="text-foreground-muted text-body-sm mb-3">Преимущества:</p>
+          <ul className="space-y-2">
+            {caseItem.benefits.slice(0, 2).map((benefit, index) => (
+              <li key={index} className="flex items-start gap-2 text-foreground-muted text-body-sm">
+                <span className="text-accent-primary mt-0.5">✓</span>
+                <span>{benefit}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {/* Tags */}
       {caseItem.tags && caseItem.tags.length > 0 && (
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 mb-6">
           {caseItem.tags.map((tag) => (
             <span
               key={tag}
@@ -78,8 +99,20 @@ export default function CaseCard({ caseItem }: { caseItem: CaseItem }) {
         </div>
       )}
 
+      {/* CTA Button */}
+      {caseItem.cta && (
+        <motion.a
+          href={caseItem.cta.href}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="block w-full px-6 py-3 bg-accent-primary text-background font-heading font-semibold rounded-lg text-center hover:bg-accent-secondary transition-colors"
+        >
+          {caseItem.cta.text}
+        </motion.a>
+      )}
+
       {/* Hover effect */}
-      <div className="absolute inset-0 bg-gradient-to-br from-accent-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl" />
+      <div className="absolute inset-0 bg-gradient-to-br from-accent-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl pointer-events-none" />
     </motion.div>
   )
 }
