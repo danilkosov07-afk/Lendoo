@@ -13,7 +13,6 @@ export function generateSchema() {
     logo: 'https://digitalstudio.com/logo.png',
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: contactData.phone.value,
       contactType: 'customer service',
       email: contactData.email.value,
     },
