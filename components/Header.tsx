@@ -15,28 +15,23 @@ export default function Header() {
   })
 
   // Smooth scroll для якорных ссылок
-  useEffect(() => {
-    const handleAnchorClick = (e: MouseEvent) => {
-      const target = e.target as HTMLAnchorElement
-      if (target.hash) {
-        e.preventDefault()
-        const element = document.querySelector(target.hash)
-        if (element) {
-          const headerHeight = 80
-          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
-          const offsetPosition = elementPosition - headerHeight
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('#')) {
+      e.preventDefault()
+      const targetId = href.substring(1)
+      const targetElement = document.getElementById(targetId)
+      if (targetElement) {
+        const headerOffset = 100
+        const elementPosition = targetElement.getBoundingClientRect().top
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset
 
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth',
-          })
-        }
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth',
+        })
       }
     }
-
-    document.addEventListener('click', handleAnchorClick)
-    return () => document.removeEventListener('click', handleAnchorClick)
-  }, [])
+  }
 
   return (
     <motion.header
@@ -66,22 +61,24 @@ export default function Header() {
               <motion.a
                 key={item.label}
                 href={item.href}
+                onClick={(e) => handleLinkClick(e, item.href)}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="text-foreground-muted hover:text-accent-primary transition-colors font-body text-body"
+                className="text-foreground-muted hover:text-accent-primary transition-colors font-body text-body cursor-pointer"
               >
                 {item.label}
               </motion.a>
             ))}
             <motion.a
               href={headerData.cta.href}
+              onClick={(e) => handleLinkClick(e, headerData.cta.href)}
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-6 py-2 bg-accent-primary text-background font-heading font-semibold rounded-lg transition-all duration-300 hover:bg-accent-secondary"
+              className="px-6 py-2 bg-accent-primary text-background font-heading font-semibold rounded-lg transition-all duration-300 hover:bg-accent-secondary cursor-pointer"
             >
               {headerData.cta.text}
             </motion.a>
@@ -121,12 +118,25 @@ export default function Header() {
               <a
                 key={item.label}
                 href={item.href}
-                className="block text-foreground-muted hover:text-accent-primary transition-colors"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={(e) => {
+                  handleLinkClick(e, item.href)
+                  setIsMenuOpen(false)
+                }}
+                className="block text-foreground-muted hover:text-accent-primary transition-colors cursor-pointer"
               >
                 {item.label}
               </a>
             ))}
+            <a
+              href={headerData.cta.href}
+              onClick={(e) => {
+                handleLinkClick(e, headerData.cta.href)
+                setIsMenuOpen(false)
+              }}
+              className="block mt-4 px-6 py-2 bg-accent-primary text-background font-heading font-semibold rounded-lg text-center transition-all duration-300 hover:bg-accent-secondary cursor-pointer"
+            >
+              {headerData.cta.text}
+            </a>
           </motion.div>
         )}
       </nav>
