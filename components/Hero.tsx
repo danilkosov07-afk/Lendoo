@@ -104,7 +104,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2, duration: 0.8, ease: 'easeOut' }}
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+            className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16 sm:mb-20"
           >
             <motion.a
               href={heroData.cta.primary.href}
@@ -140,15 +140,14 @@ export default function Hero() {
               />
             </motion.a>
           </motion.div>
-        </motion.div>
 
-        {/* Индикатор скролла с улучшенной анимацией (скрыт на мобильных) */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 0.6 }}
-          className="hidden md:block absolute bottom-20 left-1/2 transform -translate-x-1/2"
-        >
+          {/* Индикатор скролла с улучшенной анимацией (под кнопками) */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.5, duration: 0.6 }}
+            className="absolute bottom-8 sm:bottom-12 left-1/2 transform -translate-x-1/2"
+          >
           <motion.div
             animate={{
               y: [0, -15, 0],
