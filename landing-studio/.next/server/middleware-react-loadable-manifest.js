@@ -1,0 +1,1 @@
+self.__REACT_LOADABLE_MANIFEST="{\"components\\\\Cases.tsx -> ./CaseCard\":{\"id\":\"components\\\\Cases.tsx -> ./CaseCard\",\"files\":[\"static/chunks/_app-pages-browser_components_CaseCard_tsx.js\"]}}"
