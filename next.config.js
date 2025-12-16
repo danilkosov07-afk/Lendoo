@@ -24,9 +24,9 @@ const nextConfig = {
     } : false,
   },
   // Экспериментальные оптимизации
-  experimental: {
-    optimizeCss: true, // Оптимизация CSS
-  },
+  // experimental: {
+  //   optimizeCss: true, // Оптимизация CSS (требует critters, может вызывать проблемы)
+  // },
   // Подготовка для мультиязычности
   // i18n: {
   //   locales: ['ru', 'en'],
