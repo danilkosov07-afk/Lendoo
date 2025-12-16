@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     telephone: false,
   },
   openGraph: {
-    type: seoData.type || 'website',
+    type: (seoData.type as 'website' | 'article' | 'book' | 'profile') || 'website',
     locale: seoData.locale || 'ru_RU',
     url: seoData.url,
     siteName: seoData.siteName || siteData.site.name,
