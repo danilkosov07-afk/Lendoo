@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 interface CaseItem {
   id: string
@@ -20,6 +21,24 @@ interface CaseItem {
 }
 
 export default function CaseCard({ caseItem }: { caseItem: CaseItem }) {
+  const handleCTAClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (caseItem.cta?.href.startsWith('#')) {
+      e.preventDefault()
+      const targetId = caseItem.cta.href.substring(1)
+      const targetElement = document.getElementById(targetId)
+      if (targetElement) {
+        const headerOffset = 100
+        const elementPosition = targetElement.getBoundingClientRect().top
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        })
+      }
+    }
+  }
+
   return (
     <motion.div
       whileHover={{ y: -8, scale: 1.01 }}
@@ -103,9 +122,10 @@ export default function CaseCard({ caseItem }: { caseItem: CaseItem }) {
       {caseItem.cta && (
         <motion.a
           href={caseItem.cta.href}
+          onClick={handleCTAClick}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="block w-full mt-auto px-6 py-3 bg-accent-primary text-background font-heading font-semibold rounded-lg text-center hover:bg-accent-secondary transition-colors"
+          className="block w-full mt-auto px-6 py-3 bg-accent-primary text-background font-heading font-semibold rounded-lg text-center hover:bg-accent-secondary transition-colors cursor-pointer"
         >
           {caseItem.cta.text}
         </motion.a>
