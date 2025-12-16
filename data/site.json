@@ -302,18 +302,8 @@
     "social": [
       {
         "name": "Telegram",
-        "href": "https://t.me/digitalstudio",
+        "href": "https://t.me/Mmmmogme",
         "icon": "telegram"
-      },
-      {
-        "name": "WhatsApp",
-        "href": "https://wa.me/79991234567",
-        "icon": "whatsapp"
-      },
-      {
-        "name": "Behance",
-        "href": "https://behance.net/digitalstudio",
-        "icon": "behance"
       }
     ]
   },
@@ -342,18 +332,8 @@
     "social": [
       {
         "name": "Telegram",
-        "href": "https://t.me/digitalstudio",
+        "href": "https://t.me/Mmmmogme",
         "icon": "telegram"
-      },
-      {
-        "name": "Behance",
-        "href": "https://behance.net/digitalstudio",
-        "icon": "behance"
-      },
-      {
-        "name": "GitHub",
-        "href": "https://github.com/digitalstudio",
-        "icon": "github"
       }
     ]
   }

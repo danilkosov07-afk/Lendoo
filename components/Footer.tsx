@@ -118,9 +118,6 @@ export default function Footer() {
           <p className="text-foreground-muted text-body-sm text-center md:text-left">
             {copyright}
           </p>
-          <p className="text-foreground-muted text-body-sm text-center md:text-right">
-            Сделано с <span className="text-accent-primary">❤</span> для digital-будущего
-          </p>
         </motion.div>
       </div>
     </footer>
