@@ -142,12 +142,12 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Индикатор скролла с улучшенной анимацией */}
+        {/* Индикатор скролла с улучшенной анимацией (скрыт на мобильных) */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 0.6 }}
-          className="absolute bottom-20 left-1/2 transform -translate-x-1/2"
+          className="hidden md:block absolute bottom-20 left-1/2 transform -translate-x-1/2"
         >
           <motion.div
             animate={{
