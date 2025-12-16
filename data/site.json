@@ -256,13 +256,8 @@
     "subtitle": "Свяжитесь с нами любым удобным способом",
     "email": {
       "label": "Email",
-      "value": "hello@digitalstudio.com",
-      "href": "mailto:hello@digitalstudio.com"
-    },
-    "phone": {
-      "label": "Телефон",
-      "value": "+7 (999) 123-45-67",
-      "href": "tel:+79991234567"
+      "value": "danil.kosov.07@gmail.com",
+      "href": "mailto:danil.kosov.07@gmail.com"
     },
     "social": [
       {
