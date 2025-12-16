@@ -58,9 +58,6 @@ export default function HeroBackground({ mousePosition }: HeroBackgroundProps) {
     }
   }, [])
 
-  // Параллакс для градиентов
-  const parallaxOffset = scrollY * 0.5
-
   return (
     <>
       {/* WebGL Canvas (структура готова для будущей реализации) */}
